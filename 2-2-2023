@@ -1,0 +1,95 @@
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        List<Integer> list = new ArrayList<Integer>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode cur = root;
+        while(cur!=null || !stack.empty()){
+            while(cur!=null){
+                stack.add(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            list.add(cur.val);
+            cur = cur.right;
+        }
+        if(list.size()==0) return true;
+        if(list.size()==1) return true;
+        if(list.size()==2){
+            if(list.get(0)==list.get(1)|| list.get(0)>list.get(1)){
+                return false;
+            }
+            return true;
+        }
+        for(int i=1;i<list.size()-1;i++) {
+            if(list.get(i)>=list.get(i+1)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+       if(root==null || root==p || root==q) return root;
+        TreeNode left = lowestCommonAncestor(root.left,p,q);
+        TreeNode right = lowestCommonAncestor(root.right,p,q);
+        if(left==null) return right;
+        else if(right==null) return left;
+        else return root; 
+    }
+}
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+       if(root==null || root==p || root==q) return root;
+        TreeNode left = lowestCommonAncestor(root.left,p,q);
+        TreeNode right = lowestCommonAncestor(root.right,p,q);
+        if(left==null) return right;
+        else if(right==null) return left;
+        else return;
+     }
+}
+
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        TreeNode newNode = new TreeNode(val);
+        if(root==null){
+            root=newNode;
+            return root;
+        }
+        TreeNode curr=root;
+        TreeNode parent=null;
+        while(curr!=null){
+            parent=curr;
+            if(val<curr.val){
+                curr=curr.left;;
+            } 
+            else{
+                curr=curr.right;
+            }
+        }
+            if(val<parent.val){
+                parent.left=newNode;
+            }
+            else{
+                parent.right=newNode;
+            } 
+        return root;
+        
+
+    }
+}
+
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+       if(head==null||head.next==null) return head;
+           head.next = deleteDuplicates(head.next);
+        if(head.val==head.next.val) return head.next;
+        return head;
+    }
+}
